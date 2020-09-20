@@ -1,9 +1,8 @@
-原文: [Keeping your Laravel applications DRY with single action classes](https://medium.com/@remi_collin/keeping-your-laravel-applications-dry-with-single-action-classes-6a950ec54d1d)
-作者: [Rémi Collin](https://medium.com/@remi_collin?source=post_page-----6a950ec54d1d--------------------------------)
+- 原文: [Keeping your Laravel applications DRY with single action classes](https://medium.com/@remi_collin/keeping-your-laravel-applications-dry-with-single-action-classes-6a950ec54d1d)
+- 作者: [Rémi Collin](https://medium.com/@remi_collin?source=post_page-----6a950ec54d1d--------------------------------)
 
 在談到應用程式的架構時,經常會被問到像是，"我要把這段程式碼放在哪裡?"這類的問題。
-Laravel是一個相當靈活的框架，想要回答這個這個問題並不是這麼容易。
-我的商業邏輯是要寫在 model 中? controller 中? 還是寫在其他地方?
+我的商業邏輯是要寫在 model 中? controller 中? 還是寫在其他地方? Laravel是一個相當靈活的框架，想要回答這些問題並不是這麼容易。
 
 當你的應用只有單一進入點時，當然是可以寫在 controller 中。但是現實中，不同邏輯間有共用的功能是非常常見的。
 
