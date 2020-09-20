@@ -9,6 +9,28 @@
 例如，大多數應用程式會有一個帳號註冊的表單，它會使用到一個 controller，並根據成功或失敗的情況去回傳相應的 view。
 如果還有給 mobile 使用的部分，這邊可能會有專用的註冊 API 來回傳 JSON 格式的資料。或許也會建立一組於 artisan 的指令來建立帳號，這在早期開發階段也是蠻常見的。
 
+``` php
+class UserController
+{
+    public function create(CreateUserRequest $request)
+    {
+        $user = User::create($request->all());
+
+        return view('user.created', ['user' => $user]);
+    }
+}
+
+class UserApiController
+{
+    public function create(CreateUserRequest $request)
+    {
+        $user = User::create($request->all());
+
+        return response()->json($user);
+    }
+}
+```
+
 這種重複性的程式碼，可能看起來是並無大礙的。但是，當邏輯繼續延伸下去，例如加上了要寄送 email 通知給新註冊的會員時，你必須要記得在兩個不同的 controller 上面都要加上這段程式碼。
 因此如果要繼續遵守 DRY 原則的話，我們就必須要包裝這一段的邏輯‧
 
@@ -18,9 +40,61 @@
 ## 避免讓 service 成為 god class
 首先，我們會想要建立一個獨立的 class，並且將關於特定 model 的程式碼都集合在一起，就像是這樣:
 
+``` php
+class UserService
+{
+    public function create(array $data) : User
+    {
+        $user = new User;
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->save();
+
+        return $user;
+    }
+
+    public function delete($userId) : bool
+    {
+        $user = User::findOrFail($userId);        
+        $user->delete();
+
+        return true;
+    }
+}
+
+```
+
 這看起來蠻讓人滿意的，我們可以在不同的 controller 去執行建立或是刪除使用者並且得到結果。但是，這個做法會有什麼問題呢? 答案是，"我們很少只會使用到單一及隔離的 model 去處理邏輯"。
 
 比如說，當一個使用者建立了一個帳號，一個新的 blog 也會一起建立起來。如果依照我們目前的模式，我們必須建立一個 BlogService ，還要將其注入到 UserService 成為其依賴。
+
+``` php
+class UserService
+{
+    protected $blogService;
+
+    public function __construct(BlogService $blogService)
+    {
+        $this->blogService = $blogService;
+    }
+
+    public function create(array $data) : User
+    {
+        $user = new User;
+        $user->email = $data['email'];
+        $user->password = $data['password'];
+        $user->save();
+
+        $blog = $this->blogService->create();
+        $user->blogs()->attach($blog);           
+
+        return $user;
+    }
+    
+    ...
+}
+
+```
 
 結果應該不難猜到，當我們的應用程式越來越龐大時，最終會存在十幾個 service ，其中某幾個 service 可能會依賴其他五或六個 service。最終就會變成我們極力要避免的 Spaghetti code。
 
