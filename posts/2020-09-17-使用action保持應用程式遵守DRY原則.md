@@ -103,7 +103,7 @@ class UserService
 ## 介紹 single action 物件
 那麼，如果我們把 service 拆成好幾個 class，而不是像現在的單一個 class 呢? 這是我在最近幾個 project 中使用的方法，效果十分不錯。
 
-首先，我們先丟到 **service** 這個太通用且模糊的詞，讓我們引用 **action**，並且定義一下 action class 可以做的事情:
+首先，我們先丟掉 **service** 這個太通用且模糊的詞，讓我們引用 **action**，並且定義一下 action class 可以做的事情:
 
 - 每個 action 的 class name 應該要有一個明確且一眼就可以了解邏輯的命名，例如: `CreateOrder`, `ConfirmCheckout`, `DeleteProduct` 與 `AddProductToCart` ......等等。
 - Action 應該只會有一個 public method，且名稱要統一，例如: `handle()` 或 `execute()`。這會讓往後實作某些 pattern 會容易許多(例如 adapter pattern)。
