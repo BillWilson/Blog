@@ -1,7 +1,7 @@
 - 原文: [Keeping your Laravel applications DRY with single action classes](https://medium.com/@remi_collin/keeping-your-laravel-applications-dry-with-single-action-classes-6a950ec54d1d)
 - 作者: [Rémi Collin](https://medium.com/@remi_collin?source=post_page-----6a950ec54d1d--------------------------------)
 
-# 使用 action 保持應用程式遵守 DRY 原則
+# 讓 Action 幫你遵守 DRY 原則
 
 當談到應用程式的架構時，經常會被問到的像是: "我要把這段程式碼放在哪裡?" 之類的問題。
 
