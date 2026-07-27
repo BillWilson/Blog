@@ -1,5 +1,7 @@
 # Design Patterns Finally Escaped the Screen
 
+> 🇹🇼 中文版本：[讓我們成為真正的生活駭客：當 Agent 成為現實世界的 Design Pattern](https://yhhbill.dev/posts/2026-07-27-讓我們成為真正的生活駭客/)
+
 Everyone right now is losing their minds over the latest AI models. The parameters, the benchmarks, the endless hype cycle of which LLM scored two points higher on a math test. It's exhausting, and it misses the point entirely.
 
 Sitting in that room at the HappyDesigner meetup last week, listening to war stories from a textile factory, an ad agency, and Meta, the reality became overwhelmingly clear: the model is just a commodity.
